@@ -1,4 +1,5 @@
 using System.ComponentModel.Design;
+using System.Diagnostics;
 
 namespace escola;
 public class Professor
@@ -31,10 +32,7 @@ public class Professor
         return professorCadastro;
 
     }
-
-    public void Menu(){
-        
-    }
+    
     public bool Login(List <Professor> listaProfessores)
     {
         int tentativas = 3;
