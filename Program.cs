@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 
 namespace escola; //school;
@@ -11,6 +12,7 @@ public class Program
         float nota1, nota2, nota3, media;
         string opcao;    
         bool estaLogado=false;  
+        bool programaFinalizado = false;
 
         List <Professor> listaprofessores = new List<Professor>();
         Professor professorAtual = new Professor();
@@ -22,7 +24,8 @@ public class Program
          Console.WriteLine("1- cadastrar professor");
          Console.WriteLine("2- fazer login");
          Console.WriteLine("3- calcular media do aluno");
-         Console.WriteLine("4- fechar o programa");
+         Console.WriteLine("4- lista de professores cadastrados");
+         Console.WriteLine("5-fechar o programa");
          Console.WriteLine("digite uma opcao acima:");
         
         opcaoMenu = int.Parse(Console.ReadLine()??"");
@@ -33,6 +36,7 @@ public class Program
 
             professorAtual = professorAtual.CadastrarProfessor(professorAtual);
             listaprofessores.Add(professorAtual);
+            professorAtual = new Professor();
             break;
 
             case 2:
@@ -41,6 +45,7 @@ public class Program
 
              case 3:
              estaLogado = false;
+             programaFinalizado = true;
              break;
 
             default:
@@ -48,9 +53,24 @@ public class Program
             opcaoMenu = int.Parse(Console.ReadLine()?? "") ;
             break;
 
+            case 4:
+             if (listaprofessores.Count == 0)
+            {
+                Console.WriteLine("Nenhum professor cadastrado.");
+            }
+            else
+            {
+                Console.WriteLine("Professores cadastrados:");
+                foreach (Professor p in listaprofessores)
+                {
+                    Console.WriteLine("- " + p.nome);
+                }
+            }
+            break;
+
         }
 
-        }while(estaLogado == false);
+        }while(estaLogado == false &&  programaFinalizado==false);
 
         if(estaLogado == true){
             do{
@@ -91,6 +111,6 @@ public class Program
             }while(opcao=="s" || opcao=="S");
         }
         
-        Console.WriteLine("Não pode acessar a área do aluno. Faça seu login novamente!");
+        Console.WriteLine("programa finalizado:");
     }
 }
